@@ -16,8 +16,8 @@ class OrmController extends Controller
     //
     public function consultas(){
 
-        // $area = Area::find(1);
-        // return $area->courses;
+         $area = Area::find(1);
+         return $area->courses;
 
         // $trainingCenter = TrainingCenter::find(1);
         // return $trainingCenter->teachers;
@@ -34,6 +34,6 @@ class OrmController extends Controller
         // $apprentice = Apprentice::find(1);
         // return $apprentice->course;
 
-        return Teacher::with('Area.Courses.Apprentices.Computer')->get();
+        // return Teacher::with('Area.Courses.Apprentices.Computer')->get();
     }
 }
