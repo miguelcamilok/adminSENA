@@ -1,4 +1,3 @@
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">ADMIN SENA</a>
@@ -9,12 +8,10 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <!-- Inicio -->
         <li class="nav-item">
           <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Inicio</a>
         </li>
 
-        <!-- Dropdown de gestión -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {{ request()->is('area*') || request()->is('teacher*') || request()->is('trainingcenter*') || request()->is('course*') || request()->is('apprentice*') || request()->is('computer*') ? 'active' : '' }}"
              href="#" id="gestionarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

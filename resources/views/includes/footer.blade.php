@@ -2,13 +2,11 @@
 <footer class="bg-dark text-white py-4 mt-5">
   <div class="container">
     <div class="row">
-      <!-- Logo / Nombre -->
       <div class="col-md-4 mb-3">
         <h5>ADMIN SENA</h5>
         <p class="small">© 2025 ADMIN SENA. Todos los derechos reservados.</p>
       </div>
 
-      <!-- Enlaces -->
       <div class="col-md-4 mb-3">
         <h5>Enlaces</h5>
         <ul class="list-unstyled">
@@ -19,7 +17,6 @@
         </ul>
       </div>
 
-      <!-- Redes Sociales -->
       <div class="col-md-4 mb-3">
         <h5>Síguenos</h5>
         <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i> Facebook</a><br>

@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="row">
-  <!-- Card: Areas -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
@@ -15,7 +14,6 @@
     </div>
   </div>
 
-  <!-- Card: Teachers -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
@@ -26,7 +24,6 @@
     </div>
   </div>
 
-  <!-- Card: Centros de Formacion -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
@@ -37,7 +34,6 @@
     </div>
   </div>
 
-  <!-- Card: Cursos -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
@@ -48,7 +44,6 @@
     </div>
   </div>
 
-  <!-- Card: Aprendices -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
@@ -59,7 +54,6 @@
     </div>
   </div>
 
-  <!-- Card: Computadores -->
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow rounded-4 border-0">
       <div class="card-body">
