@@ -9,7 +9,7 @@ class TeacherController extends Controller
 {
     //
     public function index(){
-        $teachers = Teacher::all();
+        $teachers = Teacher::with('area', 'trainingCenter')->get();
         return view('teacher.index', compact('teachers'));
     }
 }

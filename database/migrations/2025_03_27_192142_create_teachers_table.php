@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
 
-            $table->unsignedBigInteger('area_id')->unique();
-            $table->unsignedBigInteger('training_center_id')->unique();
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('training_center_id');
 
             $table->foreign('area_id')
                ->references('id')

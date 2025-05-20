@@ -13,11 +13,11 @@ use App\Models\Course;
 use App\Models\TrainingCenter;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
 
 Route::get('orm', [OrmController::class, 'consultas']);
-Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
+Route::get('areas', [AreaController::class, 'index'])->name('area.index');
 Route::get('trainingcenters', [TrainingCenterController::class, 'index'])->name('trainingcenter.index');
 Route::get('teachers', [TeacherController::class, 'index'])->name('teacher.index');
 Route::get('courses', [CourseController::class, 'index'])->name('course.index');

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('course_number');
             $table->string('day');
-            $table->unsignedBigInteger('area_id')->unique();
-            $table->unsignedBigInteger('training_center_id')->unique();
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('training_center_id');
 
             $table->foreign('area_id')
                ->references('id')

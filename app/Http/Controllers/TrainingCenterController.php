@@ -9,7 +9,7 @@ class TrainingCenterController extends Controller
 {
     //
     public function index(){
-        $trainingcenters = TrainingCenter::all();
+        $trainingcenters = TrainingCenter::with('teachers', 'courses')->get();
         return view('trainingcenter.index', compact('trainingcenters'));
     }
 }

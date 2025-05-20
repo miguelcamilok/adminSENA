@@ -9,7 +9,7 @@ class CourseController extends Controller
 {
     //
     public function index(){
-        $courses = Course::all();
+        $courses = Course::with('area', 'trainingCenter')->get();
         return view('course.index', compact('courses'));
     }
 }

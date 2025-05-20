@@ -9,7 +9,7 @@ class ComputerController extends Controller
 {
     //
     public function index(){
-        $computers = Computer::all();
+        $computers = Computer::with('apprentice')->get();
         return view('computer.index', compact('computers'));
     }
 }
