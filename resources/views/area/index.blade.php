@@ -3,7 +3,11 @@
 @section('title', 'Areas - ADMIN SENA')
 
 @section('content')
-<h4 class="md-2">Listado de Areas</h4>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Listado de Áreas</h4>
+    <a href="{{ route('area.create') }}" class="btn btn-dark">+</a>
+</div>
+
 <div class="row">
     @foreach ($areas as $area)
     <section class="col-md-4 mb-4">
@@ -19,26 +23,25 @@
                     <th>Profesores Asignados</th>
                     <td>
                        @if($area->teachers->isNotEmpty())
-                       {{ $area->teachers->pluck('name')->join(', ') }}
+                           {{ $area->teachers->pluck('name')->join(', ') }}
                        @else
-                            No hay profesores asignados
+                           No hay profesores asignados
                        @endif
                     </td>
                 </tr>
-
                 <tr>
                     <th>Cursos Asignados</th>
                     <td>
                         @if($area->courses->isNotEmpty())
-                        {{ $area->courses->pluck('course_number')->join(', ') }}
+                            {{ $area->courses->pluck('course_number')->join(', ') }}
                         @else
-                            No hay cursos asiganados
+                            No hay cursos asignados
                         @endif
                     </td>
                 </tr>
             </tbody>
         </table>
-
     </section>
     @endforeach
-    @endsection
+</div>
+@endsection

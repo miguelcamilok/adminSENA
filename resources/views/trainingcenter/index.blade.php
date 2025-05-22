@@ -3,8 +3,11 @@
 @section('title', 'Training Centers - ADMIN SENA')
 
 @section('content')
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Listado de Centros de Formacion</h4>
+    <a href="{{route('trainingcenter.create')}}" class="btn btn-dark">+</a>
+</div>
 
-<h4 class="md-2">Listado de Centros de Formacion</h4>
 <div class="row">
     @foreach ($trainingcenters as $trainingcenter)
     <section class="col-md-4 mb-4">
