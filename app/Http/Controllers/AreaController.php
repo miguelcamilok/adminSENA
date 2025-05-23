@@ -9,7 +9,7 @@ class AreaController extends Controller
 {
     //
     public function index(){
-        $areas = Area::with(['teachers', 'courses'])->get();
+        $areas = Area::all();
         return view('area.index', compact('areas'));
     }
 

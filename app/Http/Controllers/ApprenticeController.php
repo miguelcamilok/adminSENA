@@ -12,7 +12,7 @@ class ApprenticeController extends Controller
     //
     public function index()
     {
-        $apprentices = Apprentice::with('computer', 'course')->get();
+        $apprentices = Apprentice::all();
         return view('apprentice.index', compact('apprentices'));
     }
 }
