@@ -3,45 +3,45 @@
 @section('title', 'Areas - ADMIN SENA')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Listado de Áreas</h4>
-    <a href="{{ route('area.create') }}" class="btn btn-dark">+</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Listado de Areas</h4>
+    <a href="{{ route('area.create') }}" class="btn btn-dark rounded-pill">+</a>
 </div>
 
-<div class="row">
-    @foreach ($areas as $area)
-    <section class="col-md-4 mb-4">
-        <table class="table table-bordered">
-            <thead class="table-light">
+<div class="table-responsive rounded px-12">
+    <table class="table align-middle text-center shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Detalles</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($areas as $area)
                 <tr>
-                    <th colspan="2">Area #{{ $area->id}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><th>Nombre</th><td>{{ $area->name}}</td></tr>
-                <tr>
-                    <th>Profesores Asignados</th>
+                    <td>{{ $area->id }}</td>
+                    <td>{{ $area->name }}</td>
                     <td>
-                       @if($area->teachers->isNotEmpty())
-                           {{ $area->teachers->pluck('name')->join(', ') }}
-                       @else
-                           No hay profesores asignados
-                       @endif
+                        <a href="{{ route('area.show', $area->id) }}" class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ route('area.edit', $area->id) }}" class="btn btn-warning btn-sm rounded-circle" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                    </td>
+                    <td>
+                        <form action="{{ route('area.destroy', $area->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('delete')                            
+                            <button class="btn btn-danger btn-sm rounded-circle" title="Eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <th>Cursos Asignados</th>
-                    <td>
-                        @if($area->courses->isNotEmpty())
-                            {{ $area->courses->pluck('course_number')->join(', ') }}
-                        @else
-                            No hay cursos asignados
-                        @endif
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    @endforeach
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection

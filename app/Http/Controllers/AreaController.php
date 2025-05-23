@@ -24,5 +24,24 @@ class AreaController extends Controller
         return redirect()->route('area.index');
     }
 
+    public function show(Area $area){
+        return view('area.show', compact('area'));
+    }
+
+    public function edit(Area $area){
+        return view('area.edit', compact('area'));
+    }
+
+    public function update(Request $request, Area $area){
+        $area->name = $request->name;
+        $area->save();
+        return redirect()->route('area.index');
+    }
+
+    public function destroy(Area $area){
+        $area->delete();
+        return redirect()->route('area.index');
+    }
+
 
 }

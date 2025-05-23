@@ -3,30 +3,47 @@
 @section('title', 'Computadores - ADMIN SENA')
 
 @section('content')
-<h4 class="md-2">Listado de Computadores</h4>
-<div class="row">
-    @foreach ($computers as $computer)
-    <section class="col-md-4 mb-4">
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <th colspan="2">Computador #{{$computer->number}}</th>
-            </thead>
-            <tbody>
-                <tr><th>Numero</th><td>{{$computer->number}}</td></tr>
-                <tr><th>Marca</th><td>{{$computer->brand}}</td></tr>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Listado de Computadores</h4>
+    <a href="{{ route('computer.create') }}" class="btn btn-dark rounded-pill">+</a>
+</div>
+
+<div class="table-responsive rounded px-12">
+    <table class="table align-middle text-center shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Número</th>
+                <th>Detalles</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($computers as $computer)
                 <tr>
-                    <th>Aprendiz Asignado</th>
+                    <td>{{ $computer->id }}</td>
+                    <td>{{ $computer->brand }}</td>
+                    <td>{{ $computer->number }}</td>
                     <td>
-                        @if($computer->apprentice)
-                          {{$computer->apprentice->name}}
-                        @else
-                           No asignado
-                        @endif
+                        <a href="{{ route('computer.show', $computer->id) }}" class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ route('computer.edit', $computer->id) }}" class="btn btn-warning btn-sm rounded-circle" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                    </td>
+                    <td>
+                        <form action="{{ route('computer.destroy', $computer->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('delete')                            
+                            <button class="btn btn-danger btn-sm rounded-circle" title="Eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
-            </tbody>
-
-        </table>
-    </section>
-    @endforeach
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection

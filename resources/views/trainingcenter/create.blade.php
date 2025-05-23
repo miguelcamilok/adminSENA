@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create AREA')
+@section('title', 'Centros de Formacion - ADMIN SENA')
 
 @section('content')
 <div class="container mt-4">

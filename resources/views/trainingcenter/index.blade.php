@@ -1,45 +1,49 @@
 @extends('layouts.app')
 
-@section('title', 'Training Centers - ADMIN SENA')
+@section('title', 'Centros de Formacion - ADMIN SENA')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h4 class="mb-0">Listado de Centros de Formacion</h4>
-    <a href="{{route('trainingcenter.create')}}" class="btn btn-dark">+</a>
+    <a href="{{ route('trainingcenter.create') }}" class="btn btn-dark rounded-pill">+</a>
 </div>
 
-<div class="row">
-    @foreach ($trainingcenters as $trainingcenter)
-    <section class="col-md-4 mb-4">
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <th colspan="2">Centro de Formacion #{{$trainingcenter->id}}</th>
-            </thead>
-            <tbody>
-                <tr><th>Nombre</th><td>{{$trainingcenter->name}}</td></tr>
-                <tr><th>Ubicacion</th><td>{{$trainingcenter->location}}</td></tr>
+<div class="table-responsive rounded px-12">
+    <table class="table align-middle text-center shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ubicacion</th>
+                <th>Detalles</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($trainingcenters as $trainingcenter)
                 <tr>
-                    <th>Profesores Asignado</th>
+                    <td>{{ $trainingcenter->id }}</td>
+                    <td>{{ $trainingcenter->name }}</td>
+                    <td>{{ $trainingcenter->location }}</td>
                     <td>
-                        @if($trainingcenter->teachers->isNotEmpty())
-                        {{$trainingcenter->teachers->pluck('name')->join(", ")}}
-                        @else
-                          No hay profesores asignados
-                        @endif
+                        <a href="{{ route('trainingcenter.show', $trainingcenter->id) }}" class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ route('trainingcenter.edit', $trainingcenter->id) }}" class="btn btn-warning btn-sm rounded-circle" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                    </td>
+                    <td>
+                        <form action="{{ route('trainingcenter.destroy', $trainingcenter->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('delete')                            
+                            <button class="btn btn-danger btn-sm rounded-circle" title="Eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <th>Cursos Asignados</th>
-                    <td>
-                        @if($trainingcenter->courses->isNotEmpty())
-                          {{$trainingcenter->courses->pluck('course_number')->join(", ")}}
-                        @else
-                          No hay Cursos asignados
-                        @endif
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    @endforeach
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection
