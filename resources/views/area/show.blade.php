@@ -22,14 +22,14 @@
                     <td>{{ $area['name'] }}</td>
                     <td>
                         @if($area->teachers->isNotEmpty())
-                          {{ $area->teachers->name }}
+                          {{ $area->teachers->pluck('name')->join(", ")}}
                         @else
                            No asignado   
                         @endif
                     </td>
                     <td>
                         @if($area->courses->isNotEmpty())
-                          {{ $area->courses->name }}
+                          {{ $area->courses->pluck('course_number')->join(", ")}}
                         @else
                            No asignado   
                         @endif

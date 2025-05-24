@@ -24,14 +24,14 @@
                     <td>{{ $trainingcenter['location'] }}</td>
                     <td>
                         @if($trainingcenter->teachers->isNotEmpty())
-                          {{ $trainingcenter->teachers->name }}
+                          {{ $trainingcenter->teachers->pluck('name')->join(', ') }}
                         @else
                            No asignado   
                         @endif
                     </td>
                     <td>
                         @if($trainingcenter->courses->isNotEmpty())
-                          {{ $trainingcenter->courses->name }}
+                          {{ $trainingcenter->courses->pluck('course_number')->join(', ') }}
                         @else
                            No asignado   
                         @endif
