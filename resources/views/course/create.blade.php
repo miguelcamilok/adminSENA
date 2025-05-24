@@ -1,19 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Create Profesor - ADMIN SENA')
+@section('title', 'Cursos - ADMIN SENA')
 
 @section('content')
     <div class="container mt-4">
-        <h4 class="mb-4">Crear un Nuevo Profesor</h4>
+        <h4>Crear un nuevo curso</h4>
 
-        <form action="{{ route('teacher.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('course.store') }}" method="POST">
             @csrf
-
             <div class="mb-3">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre"
-                    required>
-                <input type="text" class="form-control mt-3" name="email" id="email" placeholder="Ingrese el email"
-                    required>
+                <input type="text" class="form-control" id="course_number" name="course_number"
+                    placeholder="Ingrese el numero de ficha" required>
+                <input type="text" class="form-control mt-3" id="day" name="day"
+                    placeholder="Ingrese la jornada de formacion" required>
             </div>
 
             <div class="mb-3">
@@ -27,7 +26,7 @@
 
             <div class="mb-3">
                 <select name="training_center_id" class="form-select" id="training_center_id" required>
-                    <option value="">Seleccione un centro de formacion</option>
+                    <option value="">Seleccion un centro de formacion</option>
                     @foreach ($trainingcenters as $trainingcenter)
                         <option value="{{ $trainingcenter->id }}">{{ $trainingcenter->name }}</option>
                     @endforeach
@@ -35,7 +34,9 @@
             </div>
 
             <button type="submit" class="btn btn-dark">Guardar</button>
-            <a href="{{ route('teacher.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('course.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
+
     </div>
+
 @endsection

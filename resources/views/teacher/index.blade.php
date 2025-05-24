@@ -3,25 +3,46 @@
 @section('title', 'Teachers - ADMIN SENA')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Listado de Profesores</h4>
-    <a href="{{route('teacher.create')}}" class="btn btn-dark">+</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Listado de Profesores</h4>
+        <a href="{{ route('teacher.create') }}" class="btn btn-dark">+</a>
+    </div>
+<div class="table-responsive rounded px-12">
+    <table class="table align-middle text center shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gmail</th>
+                <th>Detalles</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($teachers as $teacher)
+                <tr>
+                    <td>{{$teacher->id}}</td>
+                    <td>{{$teacher->name}}</td>
+                    <td>{{$teacher->email}}</td>
+                    <td>
+                        <a href="{{route('teacher.show', $teacher->id)}}" class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{route('teacher.edit', $teacher->id)}}" class="btn btn-warning btn-sm rounded-circle" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                    </td>
+                    <td>
+                        <form action="{{route('teacher.destroy', $teacher->id)}}" class="d-inlide" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button  class="btn btn-danger btn-sm rounded-circle" title="Eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
-
-<div class="row">
-    @foreach ($teachers as $teacher)
-    <section class="col-md-4 mb-4">
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr><th colspan="2">Profesor #{{$teacher->id}}</th></tr>
-            </thead>
-            <tbody>
-                <tr><th>Nombre</th><td>{{ $teacher->name}}</td></tr>
-                <tr><th>Gmail</th><td> {{ $teacher->email}}</td></tr>
-                <tr><th>Area</th><td>{{ $teacher->area->name}}</td></tr>
-                <tr><th>Centro de Formacion</th><td>{{ $teacher->trainingCenter->name}}</td></tr>
-            </tbody>
-        </table>
-    </section>
-    @endforeach
 @endsection

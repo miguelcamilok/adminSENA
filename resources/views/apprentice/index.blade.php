@@ -3,34 +3,47 @@
 @section('title', 'Aprendices - ADMIN SENA')
 
 @section('content')
-    <h4 class="mb-2">Listado de Aprendices</h4>
-    <div class="row">
-        @foreach ($apprentices as $apprentice)
-            <section class="col-md-4 mb-4">
-                <table class="table table-bordered">
-                    <thead class="table-light">
-                        <tr><th colspan="2">Aprendiz #{{ $apprentice->id }}</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>Nombre</th><td>{{ $apprentice->name }}</td></tr>
-                        <tr><th>Email</th><td>{{ $apprentice->email }}</td></tr>
-                        <tr><th>Teléfono</th><td>{{ $apprentice->cell_number }}</td></tr>
-                        <tr>
-                            <th>Curso</th>
-                            <td>{{ $apprentice->course->course_number}}</td>
-                        </tr>
-                        <tr>
-                            <th>Computador</th>
-                            <td>
-                                @if ($apprentice->computer->isNotEmpty)
-                                    #{{ $apprentice->computer->number }} - {{ $apprentice->computer->brand }}
-                                @else
-                                    Sin computador asignado
-                                @endif
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        @endforeach
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Listado de Aprendices</h4>
+    <a href="{{ route('apprentice.create') }}" class="btn btn-dark">+</a>
+</div>
+
+<div class="table-responsive rounded px-12">
+    <table class="table align-middle text center shodow-sm">
+        <thead class="table-dark">
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Gmail</th>
+            <th>Numero de telefono</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </thead>
+        <tbody>
+            @foreach ($apprentices as $apprentice)
+            <tr>
+                <td>{{$apprentice->id}}</td>
+                <td>{{$apprentice->name}}</td>
+                <td>{{$apprentice->email}}</td>
+                <td>{{$apprentice->cell_number}}</td>
+                <td>
+                    <a href="{{route('apprentice.show', $apprentice->id)}}" class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>
+                </td>
+                <td>
+                    <a href="{{route('apprentice.edit', $apprentice->id)}}" class="btn btn-warning btn-sm rounded-circle" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                </td>
+                <td>
+                    <form action="{{route('apprentice.destroy', $apprentice->id)}}" class="d-inline" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger btn-sm rounded-circle">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection
