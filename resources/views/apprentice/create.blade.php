@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Aprendices - ADMIN SENA')
+@section('title', 'Create Apprentice - ADMIN SENA')
 
 @section('content')
 
@@ -31,7 +31,7 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-dark">Guardar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{route('apprentice.index')}}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

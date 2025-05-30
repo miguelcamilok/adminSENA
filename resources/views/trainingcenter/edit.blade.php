@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Centros de Formacion - ADMIN SENA')
+@section('title', 'Edit Training Center - ADMIN SENA')
 
 @section('content')
-    <div class="container mt-5">
-        <h4 class="mb-4">Actualizar Centro de Formacion #{{ $trainingcenter->id }}</h1>
+    <div class="container mb-3">
+        <h4 class="mb-3 fw-bold text-primary-emphasis">
+            Actualizar Centro de Formacion <span class="text-dark">#{{ $trainingcenter->id }}</span>
+        </h4>
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm rounded-4 shadow-sm border border-2 border-light-subtle">
             <div class="card-body">
                 <form action="{{ route('trainingcenter.update', $trainingcenter->id) }}" method="POST">
                     @csrf
@@ -17,7 +19,7 @@
                         <input type="text" class="form-control mt-3" id="location" name="location" value="{{ old('location', $trainingcenter->location) }}">
                     </div>
 
-                    <button type="submit" class="btn btn-dark">
+                    <button type="submit" class="btn btn-success">
                         <i class="bi bi-save"></i> Actualizar Centro de Formacion
                     </button>
                     <a href="{{ route('trainingcenter.index') }}" class="btn btn-secondary" >Cancelar</a>

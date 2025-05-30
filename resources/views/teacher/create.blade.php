@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Create Profesor - ADMIN SENA')
+@section('title', 'Create Teacher - ADMIN SENA')
 
 @section('content')
     <div class="container mt-4">
-        <h4 class="mb-4">Crear un Nuevo Profesor</h4>
+        <h4 class="mb-4">Crear un nuevo profesor</h4>
 
         <form action="{{ route('teacher.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -34,7 +34,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-dark">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
             <a href="{{ route('teacher.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>

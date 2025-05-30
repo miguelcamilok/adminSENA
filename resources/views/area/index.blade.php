@@ -4,7 +4,8 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Listado de Areas</h4>
+        <h3 class="mb-0 fw-bold text-primary-emphasis text-dark">
+            Listado de Areas</h4>
         <a href="{{ route('area.create') }}" class="btn btn-dark">+</a>
     </div>
 
@@ -13,8 +14,8 @@
             <i class="bi bi-info-circle"> No hay areas registradas.</i>
         </div>
     @else
-        <div class="table-responsive rounded px-12">
-            <table class="table align-middle text-center shadow-sm">
+        <div class="table-responsive rounded-4 shadow-sm border border-2 border-light-subtle">
+            <table class="table align-middle text-center mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -24,11 +25,11 @@
                         <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @foreach ($areas as $area)
                         <tr>
-                            <td>{{ $area->id }}</td>
-                            <td>{{ $area->name }}</td>
+                            <td class="fw-semibold">{{ $area->id }}</td>
+                            <td class="fw-semibold">{{ $area->name }}</td>
                             <td>
                                 <a href="{{ route('area.show', $area->id) }}" class="btn btn-light btn-sm rounded-circle"
                                     title="Ver"><i class="bi bi-eye"></i></a>

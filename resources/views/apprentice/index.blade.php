@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Aprendices - ADMIN SENA')
+@section('title', 'Apprentices - ADMIN SENA')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Listado de Aprendices</h4>
+        <h3 class="mb-0 fw-bold text-primary-emphasis text-dark">
+            Listado de Aprendices</h4>
         <a href="{{ route('apprentice.create') }}" class="btn btn-dark">+</a>
     </div>
     @if ($apprentices->isEmpty())
@@ -12,8 +13,8 @@
             <i class="bi bi-info-circle"> No hay aprendices registrados.</i>
         </div>
     @else
-        <div class="table-responsive rounded px-12">
-            <table class="table align-middle text center shodow-sm">
+        <div class="table-responsive rounded-4 shadow-sm border border-2 border-light-subtle">
+            <table class="table align-middle text-center mb-0">
                 <thead class="table-dark">
                     <th>ID</th>
                     <th>Nombre</th>
@@ -23,13 +24,13 @@
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @foreach ($apprentices as $apprentice)
                         <tr>
-                            <td>{{ $apprentice->id }}</td>
-                            <td>{{ $apprentice->name }}</td>
-                            <td>{{ $apprentice->email }}</td>
-                            <td>{{ $apprentice->cell_number }}</td>
+                            <td class="fw-semibold">{{ $apprentice->id }}</td>
+                            <td class="fw-semibold">{{ $apprentice->name }}</td>
+                            <td class="fw-semibold">{{ $apprentice->email }}</td>
+                            <td class="fw-semibold">{{ $apprentice->cell_number }}</td>
                             <td>
                                 <a href="{{ route('apprentice.show', $apprentice->id) }}"
                                     class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>

@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Computadores - ADMIN SENA')
+@section('title', 'Edit Computer - ADMIN SENA')
 
 @section('content')
-    <div class="container mt-5">
-        <h4 class="mb-4">Actualizar Computador</h1>
+    <div class="container mb-3">
+        <h4 class="mb-3 fw-bold text-primary-emphasis">
+            Actualizar Computador <span class="text-dark">#{{ $computer->id }}</span>
+        </h4>
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm rounded-4 border border-2 border-light-subtle">
             <div class="card-body">
                 <form action="{{ route('computer.update', $computer->id) }}" method="POST">
                     @csrf
@@ -19,7 +21,7 @@
 
                     </div>
 
-                    <button type="submit" class="btn btn-dark">
+                    <button type="submit" class="btn btn-success">
                         <i class="bi bi-save"></i> Actualizar Computador
                     </button>
                     <a href="{{ route('computer.index') }}" class="btn btn-secondary" >Cancelar</a>

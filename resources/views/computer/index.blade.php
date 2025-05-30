@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Computadores - ADMIN SENA')
+@section('title', 'Computers - ADMIN SENA')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Listado de Computadores</h4>
+        <h3 class="mb-0 fw-bold text-primary-emphasis text-dark">
+            Listado de Computadores</h4>
         <a href="{{ route('computer.create') }}" class="btn btn-dark">+</a>
     </div>
 
@@ -13,8 +14,8 @@
             <i class="bi bi-info-circle"> No hay computadores registrados.</i>
         </div>
     @else
-        <div class="table-responsive rounded px-12">
-            <table class="table align-middle text-center shadow-sm">
+        <div class="table-responsive rounded-4 shadow-sm border border-2 border-light-subtle">
+            <table class="table align-middle text-center mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -25,12 +26,12 @@
                         <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @foreach ($computers as $computer)
                         <tr>
-                            <td>{{ $computer->id }}</td>
-                            <td>{{ $computer->brand }}</td>
-                            <td>{{ $computer->number }}</td>
+                            <td class="fw-semibold">{{ $computer->id }}</td>
+                            <td class="fw-semibold">{{ $computer->brand }}</td>
+                            <td class="fw-semibold">{{ $computer->number }}</td>
                             <td>
                                 <a href="{{ route('computer.show', $computer->id) }}"
                                     class="btn btn-light btn-sm rounded-circle" title="Ver"><i class="bi bi-eye"></i></a>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cursos - ADMIN SENA')
+@section('title', 'Create Course - ADMIN SENA')
 
 @section('content')
     <div class="container mt-4">
@@ -33,7 +33,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-dark">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
             <a href="{{ route('course.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
 

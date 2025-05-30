@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Centros de Formacion - ADMIN SENA')
+@section('title', 'Create Training Center - ADMIN SENA')
 
 @section('content')
 <div class="container mt-4">
-    <h4 class="mb-4">Crear Nuevo Centro de Formacion</h4>
+    <h4 class="mb-4">Crear un nuevo centro de formacion</h4>
 
     <form action="{{ route('trainingcenter.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -13,7 +13,7 @@
             <input type="text" class="form-control mt-3" id="location" name="location" placeholder="Ingrese la ubicacion">
         </div>
 
-        <button type="submit" class="btn btn-dark">Guardar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{route('trainingcenter.index')}}" class="btn btn-secondary">Cancelar</a> 
     </form>
 </div>

@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Profesores - ADMIN SENA')
+@section('title', 'Edit Teacher - ADMIN SENA')
 
 @section('content')
-<div class="container mt-5">
-    <h4 class="mb-4">Actualizar Profesor #{{$teacher->id}}</h4>
+<div class="container mb-3">
+    <h4 class="mb-3 fw-bold text-primary-emphasis">
+            Actualizar Profesor <span class="text-dark">#{{ $teacher->id }}</span>
+        </h4>
 
-    <div class="card shadow-sm">
+    <div class="card shadow-sm rounded-4 shadow-sm border border-2 border-light-subtle">
         <div class="card-body">
             <form action="{{route('teacher.update', $teacher->id)}}" method="POST">
                 @csrf
@@ -17,7 +19,7 @@
                     <input type="text" class="form-control mt-3" name="email" id="email" value="{{old('email', $teacher->email)}}">
                 </div>
 
-                <button type="submit" class="btn btn-dark">
+                <button type="submit" class="btn btn-success">
                     <i class="bi bi-save"></i>Actualizar Profesor
                 </button>
                 <a href="{{route('teacher.index')}}" class="btn btn-secondary">Cancelar</a>

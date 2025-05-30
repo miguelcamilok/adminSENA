@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Cursos - ADMIN SENA')
+@section('title', 'Courses - ADMIN SENA')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Listado de Cursos</h4>
+        <h3 class="mb-0 fw-bold text-primary-emphasis text-dark">
+            Listado de Cursos</h4>
         <a href="{{ route('course.create') }}" class="btn btn-dark">+</a>
     </div>
 
@@ -13,8 +14,8 @@
             <i class="bi bi-info-circle"> No hay cursos registrados.</i>
         </div>
     @else
-        <div class="table-responsive rounded px-12">
-            <table class="table align-middle text center shadow-sm">
+        <div class="table-responsive rounded-4 shadow-sm border border-2 border-light-subtle">
+            <table class="table align-middle text-center mb-0">
                 <thead class="table-dark">
                     <th>ID</th>
                     <th>Numero de Ficha</th>
@@ -23,12 +24,12 @@
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @foreach ($courses as $course)
                         <tr>
-                            <td>{{ $course->id }}</td>
-                            <td>{{ $course->course_number }}</td>
-                            <td>{{ $course->day }}</td>
+                            <td class="fw-semibold">{{ $course->id }}</td>
+                            <td class="fw-semibold">{{ $course->course_number }}</td>
+                            <td class="fw-semibold">{{ $course->day }}</td>
                             <td>
                                 <a href="{{ route('course.show', $course->id) }}" class="btn btn-light btn-sm rounded-circle"
                                     title="Ver"><i class="bi bi-eye"></i></a>
