@@ -9,8 +9,11 @@ class AreaController extends Controller
 {
     //
     public function index(){
-        $areas = Area::all();
-        return view('area.index', compact('areas'));
+
+        $areas = Area::included()->get();
+        return response()->json($areas);
+        // $areas = Area::all();
+        // return view('area.index', compact('areas'));
     }
 
     public function create(){

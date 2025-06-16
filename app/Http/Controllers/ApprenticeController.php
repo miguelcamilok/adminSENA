@@ -14,8 +14,12 @@ class ApprenticeController extends Controller
     //
     public function index()
     {
-        $apprentices = Apprentice::all();
-        return view('apprentice.index', compact('apprentices'));
+
+        $apprentices = Apprentice::included()->get();
+        return response()->json($apprentices);
+
+        // $apprentices = Apprentice::all();
+        // return view('apprentice.index', compact('apprentices'));
     }
 
     public function create(){

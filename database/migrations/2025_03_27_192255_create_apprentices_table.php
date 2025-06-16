@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email');
             $table->integer('cell_number');
             
-            $table->unsignedBigInteger('course_id')->unique();
-            $table->unsignedBigInteger('computer_id')->unique();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('computer_id');
 
             $table->foreign('course_id')
                ->references('id')

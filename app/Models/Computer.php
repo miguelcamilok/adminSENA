@@ -9,7 +9,13 @@ class Computer extends Model
 {
 
     protected $fillable = ['name']; //Campos que se van a asignacion masiva:
-    protected $allowIncluded = ['apprentice', 'apprentice.courses', 'apprentice.courses.areas', ''];
+    protected $allowIncluded = [
+        'apprentice', 
+        'apprentice.course', 
+        'apprentice.course.area',
+        'apprentice.course.area.teachers',
+        'apprentice.course.area.teachers.trainingcenter'
+    ];
     protected $allowFilter = ['id', 'number', 'brand'];
 
 
