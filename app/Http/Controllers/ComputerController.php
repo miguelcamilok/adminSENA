@@ -9,8 +9,11 @@ class ComputerController extends Controller
 {
     //
     public function index(){
-        $computers = Computer::all();
-        return view('computer.index', compact('computers'));
+        $computers=Computer::included()->filter()->get();
+        return response()->json($computers);
+
+        // $computers = Computer::all();
+        // return view('computer.index', compact('computers'));
     }
 
     public function create(){
