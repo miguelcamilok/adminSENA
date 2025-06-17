@@ -2,10 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class TrainingCenter extends Model
 {
+    protected $fillable = ['name'];
+
+    protected $allowIncluded = [
+        'teachers',
+        'teachers.area',
+        'teachers.area.courses',
+        'teachers.area.courses.apprentices',
+        'teachers.area.courses.apprentices.computer',
+
+        'courses',
+        'courses.apprentices',
+        'courses.apprentices.computer',
+
+        'courses.area',
+        'courses.area.teachers',
+    ];
     //
     public function teachers(){
         return $this->hasMany(Teacher::class);
@@ -13,5 +30,23 @@ class TrainingCenter extends Model
 
     public function courses(){
         return $this->hasMany(Course::class);
+    }
+
+    public function scopeIncluded(Builder $query){
+        if(empty($this->allowIncluded || request('included'))){
+            return;
+        }
+
+        $relations = explode(',', request('included'));
+
+        $allowIncluded = collect($this->allowIncluded);
+
+        foreach($relations as $key =>$relationship){
+            if(!$allowIncluded->contains($relationship)){
+                unset($relations[$key]);
+            }
+        }
+
+        $query->with($relations);
     }
 }
