@@ -10,7 +10,7 @@ class AreaController extends Controller
     //
     public function index(){
 
-        $areas = Area::included()->get();
+        $areas = Area::included()->filter()->get();
         return response()->json($areas);
         // $areas = Area::all();
         // return view('area.index', compact('areas'));

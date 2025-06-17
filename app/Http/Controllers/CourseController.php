@@ -13,7 +13,7 @@ class CourseController extends Controller
     //
     public function index(){
 
-        $courses = Course::included()->get();
+        $courses = Course::included()->filter()->get();
         return response()->json($courses);
         // $courses = Course::all();
         // return view('course.index', compact('courses'));

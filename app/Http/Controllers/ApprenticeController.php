@@ -15,7 +15,7 @@ class ApprenticeController extends Controller
     public function index()
     {
 
-        $apprentices = Apprentice::included()->get();
+        $apprentices = Apprentice::included()->filter()->get();
         return response()->json($apprentices);
 
         // $apprentices = Apprentice::all();

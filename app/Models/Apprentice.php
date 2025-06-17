@@ -17,6 +17,8 @@ class Apprentice extends Model
         'course.area.teachers.trainingcenter'
     ];
 
+    protected $allowFilter = ['id', 'name', 'cell_number'];
+
 
     public function course(){
         return $this->belongsTo(Course::class);
@@ -42,5 +44,24 @@ class Apprentice extends Model
         }
 
         $query->with($relations);
+    }
+
+    public function scopeFilter(Builder $query)
+    {
+
+        if (empty($this->allowFilter) || empty(request('filter'))) {
+            return;
+        }
+
+        $filters = request('filter');
+        $allowFilter = collect($this->allowFilter);
+
+        foreach ($filters as $filter => $value) {
+
+            if ($allowFilter->contains($filter)) {
+
+                $query->where($filter, 'LIKE', '%' . $value . '%');//nos retorna todos los registros que conincidad, asi sea en una porcion del texto
+            }
+        }
     }
 }

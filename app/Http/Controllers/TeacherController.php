@@ -13,7 +13,7 @@ class TeacherController extends Controller
     //
     public function index(){
 
-        $teachers = Teacher::included()->get();
+        $teachers = Teacher::included()->filter()->get();
         return response()->json($teachers);
         // $teachers = Teacher::all();
         // return view('teacher.index', compact('teachers'));

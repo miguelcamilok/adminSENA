@@ -23,6 +23,8 @@ class TrainingCenter extends Model
         'courses.area',
         'courses.area.teachers',
     ];
+
+    protected $allowFilter = ['id', 'name', 'location'];
     //
     public function teachers(){
         return $this->hasMany(Teacher::class);
@@ -48,5 +50,24 @@ class TrainingCenter extends Model
         }
 
         $query->with($relations);
+    }
+
+    public function scopeFilter(Builder $query)
+    {
+
+        if (empty($this->allowFilter) || empty(request('filter'))) {
+            return;
+        }
+
+        $filters = request('filter');
+        $allowFilter = collect($this->allowFilter);
+
+        foreach ($filters as $filter => $value) {
+
+            if ($allowFilter->contains($filter)) {
+
+                $query->where($filter, 'LIKE', '%' . $value . '%');//nos retorna todos los registros que conincidad, asi sea en una porcion del texto
+            }
+        }
     }
 }

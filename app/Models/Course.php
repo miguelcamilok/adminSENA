@@ -17,6 +17,8 @@ class Course extends Model
         'apprentices',
         'apprentices.computer',
     ];
+
+    protected $allowFilter = ['id', 'course_number', 'day'];
     public function trainingCenter(){
         return $this->belongsTo(TrainingCenter::class);
     }
@@ -49,5 +51,24 @@ class Course extends Model
         }
 
         $query->with($relations);
+    }
+
+    public function scopeFilter(Builder $query)
+    {
+
+        if (empty($this->allowFilter) || empty(request('filter'))) {
+            return;
+        }
+
+        $filters = request('filter');
+        $allowFilter = collect($this->allowFilter);
+
+        foreach ($filters as $filter => $value) {
+
+            if ($allowFilter->contains($filter)) {
+
+                $query->where($filter, 'LIKE', '%' . $value . '%');//nos retorna todos los registros que conincidad, asi sea en una porcion del texto
+            }
+        }
     }
 }
