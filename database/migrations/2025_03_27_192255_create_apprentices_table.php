@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->integer('cell_number');
+            $table->bigInteger('cell_number');
             
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('computer_id');
