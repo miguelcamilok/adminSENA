@@ -35,13 +35,13 @@ class ComputerController extends Controller
 
     function store(StoreComputerRequest $request)
     {
-        $computer = $this->computerService->create($request->validate());
+        $computer = $this->computerService->create($request->validated());
         return response()->json(['message' => 'computer agregada correctamente.', 'data' => $computer], 201);
     }
 
     function update(UpdateComputerRequest $request, $id)
     {
-        $computer = $this->computerService->update($id, $request->validate());
+        $computer = $this->computerService->update($id, $request->validated());
         if(!$computer){
             return response()->json(['message' => 'No encontrado'], 404);
         }

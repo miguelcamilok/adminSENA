@@ -11,7 +11,7 @@ class UpdateTeacherRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,13 +21,12 @@ class UpdateTeacherRequest extends FormRequest
      */
     public function rules(): array
     {
-        $teacherId = $this->route('teacher'); // Solo necesario si usas esta clase también para update
 
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:teachers,email,' . $teacherId,
-            'area_id' => 'required|exists:areas,id',
-            'training_center_id' => 'required|exists:training_centers,id',
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string|max:255',
+            'area_id' => 'sometimes|exists:areas,id',
+            'training_center_id' => 'sometimes|exists:training_centers,id',
         ];
     }
 }

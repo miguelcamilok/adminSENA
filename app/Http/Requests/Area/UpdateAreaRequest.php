@@ -22,7 +22,7 @@ class UpdateAreaRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name' => 'required|string|max:255|unique:areas,name',
+           'name' => 'sometimes|string|max:255',
         ];
     }
 }

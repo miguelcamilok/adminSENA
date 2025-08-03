@@ -15,8 +15,8 @@ class ComputerFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => $this->faker->unique()->numberBetween(1, 100),
-            'brand' => $this->faker->company(),
+            'number' => $this->faker->unique()->randomNumber(4),
+            'brand' => $this->faker->randomElement(['HP', 'Dell', 'Lenovo', 'Asus']),
         ];
     }
 }

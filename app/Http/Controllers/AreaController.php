@@ -35,13 +35,13 @@ class AreaController extends Controller
 
     function store(StoreAreaRequest $request)
     {
-        $area = $this->areaService->create($request->validate());
+        $area = $this->areaService->create($request->validated());
         return response()->json(['message' => 'Area agregada correctamente.', 'data' => $area], 201);
     }
 
     function update(UpdateAreaRequest $request, $id)
     {
-        $area = $this->areaService->update($id, $request->validate());
+        $area = $this->areaService->update($id, $request->validated());
         if(!$area){
             return response()->json(['message' => 'No encontrado'], 404);
         }

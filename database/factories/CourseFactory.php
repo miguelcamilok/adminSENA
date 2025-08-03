@@ -17,10 +17,10 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'course_number' => $this->faker->unique()->numberBetween(100, 999),
-            'day' => $this->faker->randomElement(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
-            'area_id' => Area::factory(),
-            'training_center_id' => TrainingCenter::factory(),
+            'course_number' => $this->faker->unique()->randomNumber(5),
+            'day' => $this->faker->randomElement(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']),
+            'area_id' => Area::inRandomOrder()->first()?->id ?? Area::factory(),
+            'training_center_id' => TrainingCenter::inRandomOrder()->first()?->id ?? TrainingCenter::factory(),
         ];
     }
 }

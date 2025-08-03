@@ -39,13 +39,13 @@ class CourseController extends Controller
 
     function store(StoreCourseRequest $request)
     {
-        $course = $this->courseService->create($request->validate());
+        $course = $this->courseService->create($request->validated());
         return response()->json(['message' => 'course agregada correctamente.', 'data' => $course], 201);
     }
 
     function update(UpdateCourseRequest $request, $id)
     {
-        $course = $this->courseService->update($id, $request->validate());
+        $course = $this->courseService->update($id, $request->validated());
         if(!$course){
             return response()->json(['message' => 'No encontrado'], 404);
         }

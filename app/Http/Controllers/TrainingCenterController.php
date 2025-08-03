@@ -35,13 +35,13 @@ class TrainingCenterController extends Controller
 
     function store(StoreTrainingCenterRequest $request)
     {
-        $teacher = $this->trainingCenterService->create($request->validate());
+        $teacher = $this->trainingCenterService->create($request->validated());
         return response()->json(['message' => 'teacher agregada correctamente.', 'data' => $teacher], 201);
     }
 
     function update(UpdateTrainingCenterRequest $request, $id)
     {
-        $teacher = $this->trainingCenterService->update($id, $request->validate());
+        $teacher = $this->trainingCenterService->update($id, $request->validated());
         if(!$teacher){
             return response()->json(['message' => 'No encontrado'], 404);
         }

@@ -18,10 +18,10 @@ class ApprenticeFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->email(),
-            'cell_number' => $this->faker->numberBetween(3000000000, 3999999999),
-            'course_id' => Course::factory(),
-            'computer_id' => Computer::factory(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'cell_number' => $this->faker->numerify('3#########'),
+            'course_id' => Course::inRandomOrder()->first()?->id ?? Course::factory(),
+            'computer_id' => Computer::inRandomOrder()->first()?->id ?? Computer::factory(),
         ];
     }
 }

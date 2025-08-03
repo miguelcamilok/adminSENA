@@ -11,7 +11,7 @@ class UpdateComputerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,8 @@ class UpdateComputerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number' => 'required|integer|min:1|unique:computers,number,' . $this->route('computer'),
-            'brand' => 'required|string|max:255',
+            'number' => 'sometimes|integer',
+            'brand' => 'sometimes|string|max:255',
         ];
     }
 }

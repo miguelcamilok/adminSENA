@@ -11,7 +11,7 @@ class StoreComputerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreComputerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number' => 'required|integer|min:1|unique:computers,number,' . $this->route('computer'),
+            'number' => 'required|integer',
             'brand' => 'required|string|max:255',
         ];
     }

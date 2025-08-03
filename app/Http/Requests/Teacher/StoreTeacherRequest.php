@@ -11,7 +11,7 @@ class StoreTeacherRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,11 +21,9 @@ class StoreTeacherRequest extends FormRequest
      */
     public function rules(): array
     {
-        $teacherId = $this->route('teacher'); // Solo necesario si usas esta clase también para update
-
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:teachers,email,' . $teacherId,
+            'email' => 'required|string|max:255', // <- sin teacherId
             'area_id' => 'required|exists:areas,id',
             'training_center_id' => 'required|exists:training_centers,id',
         ];

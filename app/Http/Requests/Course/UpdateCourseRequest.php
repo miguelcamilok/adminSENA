@@ -11,7 +11,7 @@ class UpdateCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,10 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_number' => 'required|integer|min:1',
-            'day' => 'required|string|max:50',
-            'area_id' => 'required|exists:areas,id',
-            'training_center_id' => 'required|exists:training_centers,id',
+            'course_number' => 'sometimes|integer',
+            'day' => 'sometimes|string|max:50',
+            'area_id' => 'sometimes|exists:areas,id',
+            'training_center_id' => 'sometimes|exists:training_centers,id',
         ];
     }
 }

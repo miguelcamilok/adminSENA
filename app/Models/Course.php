@@ -12,7 +12,11 @@ class Course extends Model
     
     protected $fillable = ['name'];
 
-    public function teachers(){ return $this->belongsToMany(Teacher::class); }
+public function teachers()
+{
+    return $this->belongsToMany(Teacher::class, 'course_teachers', 'course_id', 'teacher_id');
+}
+
 
     public function area(){ return $this->belongsTo(Area::class); }
 

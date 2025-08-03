@@ -14,7 +14,7 @@ class CourseServiceImpl implements CourseService
 
     function show($id)
     {
-        return Course::with(['traingincenter', 'teachers', 'area'])->find($id);
+        return Course::with(['trainingcenter', 'teachers', 'area'])->find($id);
     }
 
     function create(array $data)

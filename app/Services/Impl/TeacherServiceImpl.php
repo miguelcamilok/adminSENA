@@ -14,7 +14,7 @@ class TeacherServiceImpl implements TeacherService
 
     function show($id)
     {
-        return Teacher::with(['traingincenter', 'courses', 'area'])->find($id);
+        return Teacher::with(['trainingcenter', 'courses', 'area'])->find($id);
     }
 
     function create(array $data)

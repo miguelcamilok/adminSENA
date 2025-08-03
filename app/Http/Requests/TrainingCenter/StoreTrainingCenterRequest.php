@@ -11,7 +11,7 @@ class StoreTrainingCenterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,9 @@ class StoreTrainingCenterRequest extends FormRequest
      */
     public function rules(): array
     {
-        $trainingCenterId = $this->route('training_center'); // Asegúrate que el nombre coincida con la ruta
 
         return [
-            'name' => 'required|string|max:255|unique:training_centers,name,' . $trainingCenterId,
+            'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
         ];
     }

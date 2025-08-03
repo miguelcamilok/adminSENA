@@ -18,9 +18,9 @@ class TeacherFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->email(),
-            'area_id' => Area::factory(),
-            'training_center_id' => TrainingCenter::factory(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'area_id' => Area::inRandomOrder()->first()?->id ?? Area::factory(),
+            'training_center_id' => TrainingCenter::inRandomOrder()->first()?->id ?? TrainingCenter::factory(),
         ];
     }
 }

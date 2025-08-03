@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Teacher\StoreTeacherRequest;
 use App\Http\Requests\Teacher\UpdateTeacherRequest;
-use App\Models\Area;
-use App\Models\TrainingCenter;
 use App\Services\TeacherService;
-use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
@@ -36,13 +33,13 @@ class TeacherController extends Controller
 
     function store(StoreTeacherRequest $request)
     {
-        $teacher = $this->teacherService->create($request->validate());
+        $teacher = $this->teacherService->create($request->validated());
         return response()->json(['message' => 'teacher agregada correctamente.', 'data' => $teacher], 201);
     }
 
     function update(UpdateTeacherRequest $request, $id)
     {
-        $teacher = $this->teacherService->update($id, $request->validate());
+        $teacher = $this->teacherService->update($id, $request->validated());
         if(!$teacher){
             return response()->json(['message' => 'No encontrado'], 404);
         }

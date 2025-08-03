@@ -39,13 +39,13 @@ class ApprenticeController extends Controller
 
     function store(StoreApprenticeRequest $request)
     {
-        $apprentice = $this->apprenticeService->create($request->validate());
+        $apprentice = $this->apprenticeService->create($request->validated());
         return response()->json(['message' => 'Aprendiz agregado correctamente.', 'data' => $apprentice], 201);
     }
 
     function update(UpdateApprenticeRequest $request, $id)
     {
-        $apprentice = $this->apprenticeService->update($id, $request->validate());
+        $apprentice = $this->apprenticeService->update($id, $request->validated());
         if(!$apprentice){
             return response()->json(['message' => 'No encontrado'], 404);
         }

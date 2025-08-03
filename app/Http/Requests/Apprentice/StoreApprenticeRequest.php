@@ -11,7 +11,7 @@ class StoreApprenticeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,12 +21,11 @@ class StoreApprenticeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $apprenticeId = $this->route('apprentice');
 
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:apprentices,email,' . $apprenticeId,
-            'cell_number' => 'required|digits_between:7,15',
+            'email' => 'required|string|max:255',
+            'cell_number' => 'required|integer',
             'course_id' => 'required|exists:courses,id',
             'computer_id' => 'required|exists:computers,id',
         ];
