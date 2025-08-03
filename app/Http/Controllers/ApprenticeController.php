@@ -2,62 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Apprentice\StoreApprenticeRequest;
+use App\Http\Requests\Apprentice\UpdateApprenticeRequest;
 use App\Models\Apprentice;
 use App\Models\Area;
 use App\Models\Course;
 use App\Models\Computer;
 use App\Models\TrainingCenter;
+use App\Services\ApprenticeService;
 use Illuminate\Http\Request;
 
 class ApprenticeController extends Controller
 {
-    //
-    public function index()
+    protected $apprenticeService;
+
+    public function __construct(ApprenticeService $apprenticeService)
     {
+        $this->apprenticeService = $apprenticeService;
+    }
 
-        $apprentices = Apprentice::included()->filter()->get();
+    function index()
+    {
+        $apprentices = $this->apprenticeService->all();
         return response()->json($apprentices);
-
-        // $apprentices = Apprentice::all();
-        // return view('apprentice.index', compact('apprentices'));
     }
 
-    public function create(){
-        $courses = Course::all();
-        $computers = Computer::all();
-        return view('apprentice.create', compact('courses', 'computers'));
+    function show($id)
+    {
+        $apprentice = $this->apprenticeService->show($id);
+        if(!$apprentice){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json($apprentice);
     }
 
-    public function store(Request $request){
-        $apprentice = new Apprentice();
-        $apprentice->name = $request->name;
-        $apprentice->email = $request->email;
-        $apprentice->cell_number = $request->cell_number;
-        $apprentice->course_id = $request->course_id;
-        $apprentice->computer_id = $request->computer_id;
-        $apprentice->save();
-        return redirect()->route('apprentice.index');
+    function store(StoreApprenticeRequest $request)
+    {
+        $apprentice = $this->apprenticeService->create($request->validate());
+        return response()->json(['message' => 'Aprendiz agregado correctamente.', 'data' => $apprentice], 201);
     }
 
-    public function show(Apprentice $apprentice){
-        return view('apprentice.show', compact('apprentice'));
+    function update(UpdateApprenticeRequest $request, $id)
+    {
+        $apprentice = $this->apprenticeService->update($id, $request->validate());
+        if(!$apprentice){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['message' => 'Actualizado correctamente.', 'data' => $apprentice]);
     }
 
-    public function edit(Apprentice $apprentice){
-        return view('apprentice.edit', compact('apprentice'));
-    }
+    function destroy($id)
+    {
+        $apprentice = $this->apprenticeService->delete($id);
+        if(!$apprentice){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-    public function update(Request $request, Apprentice $apprentice){
-        $apprentice->name =  $request->name;
-        $apprentice->email = $request->email;
-        $apprentice->cell_number = $request->cell_number;
-        $apprentice->save();
-
-        return redirect()->route('apprentice.index');
-    }
-
-    function destroy(Apprentice $apprentice){
-        $apprentice->delete();
-        return redirect()->route('apprentice.index');
+        return response()->json(['message' => 'Eliminado correctamente.']);
     }
 }

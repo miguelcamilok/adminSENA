@@ -2,51 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrainingCenter\StoreTrainingCenterRequest;
+use App\Http\Requests\TrainingCenter\UpdateTrainingCenterRequest;
 use App\Models\TrainingCenter;
+use App\Services\TrainingCenterService;
 use Illuminate\Http\Request;
 
 class TrainingCenterController extends Controller
 {
-    //
-    public function index(){
+    protected $trainingCenterService;
 
-        $trainingcenters = TrainingCenter::included()->filter()->get();
-        return response()->json($trainingcenters);
-        // $trainingcenters = TrainingCenter::all();
-        // return view('trainingcenter.index', compact('trainingcenters'));
+    function __construct(TrainingCenterService $trainingCenterService)
+    {
+        $this->trainingCenterService = $trainingCenterService;
     }
 
-    public function create(){
-        return view('trainingcenter.create');
+    function index()
+    {
+        $teachers = $this->trainingCenterService->all();
+        return response()->json($teachers);
     }
 
-    public function store(Request $request){
+    function show($id)
+    {
+        $teacher = $this->trainingCenterService->show($id);
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-        $trainingcenter = new TrainingCenter();
-        $trainingcenter->name = $request->name;
-        $trainingcenter->location = $request->location;
-        $trainingcenter->save();
-        return redirect()->route('trainingcenter.index');
-
+        return response()->json($teacher);
     }
 
-    public function show(TrainingCenter $trainingcenter){
-        return view('trainingcenter.show', compact('trainingcenter'));
+    function store(StoreTrainingCenterRequest $request)
+    {
+        $teacher = $this->trainingCenterService->create($request->validate());
+        return response()->json(['message' => 'teacher agregada correctamente.', 'data' => $teacher], 201);
     }
 
-    public function edit(TrainingCenter $trainingcenter){
-        return view('trainingcenter.edit', compact('trainingcenter'));
+    function update(UpdateTrainingCenterRequest $request, $id)
+    {
+        $teacher = $this->trainingCenterService->update($id, $request->validate());
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['message' => 'Actualizado correctamente', 'data' => $teacher]);
     }
 
-    public function update(Request $request, TrainingCenter $trainingcenter){
-        $trainingcenter->name = $request->name;
-        $trainingcenter->location = $request->location;
-        $trainingcenter->save();
-        return redirect()->route('trainingcenter.index');
-    }
+    function destroy($id)
+    {
+        $teacher = $this->trainingCenterService->delete($id);
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-    public function destroy(TrainingCenter $trainingcenter){
-        $trainingcenter->delete();
-        return redirect()->route('trainingcenter.index');
+        return response()->json(['message' => 'Eliminado correctamente.']);
     }
 }

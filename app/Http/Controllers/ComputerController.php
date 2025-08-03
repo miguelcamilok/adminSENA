@@ -2,50 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Computer\StoreComputerRequest;
+use App\Http\Requests\Computer\UpdateComputerRequest;
 use App\Models\Computer;
+use App\Services\ComputerService;
 use Illuminate\Http\Request;
 
 class ComputerController extends Controller
 {
-    //
-    public function index(){
-        $computers=Computer::included()->filter()->get();
+    protected $computerService;
+
+    function __construct(ComputerService $computerService)
+    {
+        $this->computerService = $computerService;
+    }
+
+    function index()
+    {
+        $computers = $this->computerService->all();
         return response()->json($computers);
-
-        // $computers = Computer::all();
-        // return view('computer.index', compact('computers'));
     }
 
-    public function create(){
-        return view('computer.create');
+    function show($id)
+    {
+        $computer = $this->computerService->show($id);
+        if(!$computer){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
+
+        return response()->json($computer);
     }
 
-    public function store(Request $request){
-
-        $computer = new Computer();
-        $computer->number = $request->number;
-        $computer->brand = $request->brand;
-        $computer->save();
-        return redirect()->route('computer.index');
+    function store(StoreComputerRequest $request)
+    {
+        $computer = $this->computerService->create($request->validate());
+        return response()->json(['message' => 'computer agregada correctamente.', 'data' => $computer], 201);
     }
 
-    public function show(Computer $computer){
-        return view('computer.show', compact('computer'));
+    function update(UpdateComputerRequest $request, $id)
+    {
+        $computer = $this->computerService->update($id, $request->validate());
+        if(!$computer){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['message' => 'Actualizado correctamente', 'data' => $computer]);
     }
 
-    public function edit(Computer $computer){
-        return view('computer.edit', compact('computer'));
-    }
+    function destroy($id)
+    {
+        $computer = $this->computerService->delete($id);
+        if(!$computer){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-    public function update(Request $request, Computer $computer){
-        $computer->number = $request->number;
-        $computer->brand = $request->brand;
-        $computer->save();
-        return redirect()->route('computer.index');
-    }
-
-    public function destroy(Computer $computer){
-        $computer->delete();
-        return redirect()->route('computer.index');
+        return response()->json(['message' => 'Eliminado correctamente.']);
     }
 }

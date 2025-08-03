@@ -2,60 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\StoreCourseRequest;
+use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Models\Course;
 use App\Models\TrainingCenter;
 use App\Models\Area;
 use App\Models\Teacher;
+use App\Services\CourseService;
+use App\Services\CouseService;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    //
-    public function index(){
+    protected $courseService;
 
-        $courses = Course::included()->filter()->get();
+    function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
+
+    function index()
+    {
+        $courses = $this->courseService->all();
         return response()->json($courses);
-        // $courses = Course::all();
-        // return view('course.index', compact('courses'));
     }
 
-    public function create(){
-        $areas = Area::all();
-        $trainingcenters = TrainingCenter::all();
-        $teachers = Teacher::all();
-        return view('course.create', compact('areas', 'trainingcenters', 'teachers'));
+    function show($id)
+    {
+        $course = $this->courseService->show($id);
+        if(!$course){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
+
+        return response()->json($course);
     }
 
-    public function store(Request $request){
-
-        $course = new Course();
-        $course->course_number = $request->course_number;
-        $course->day = $request ->day;
-        $course->area_id = $request->area_id;
-        $course->training_center_id = $request->training_center_id;
-        $course->save();
-
-        return redirect()->route('course.index');
+    function store(StoreCourseRequest $request)
+    {
+        $course = $this->courseService->create($request->validate());
+        return response()->json(['message' => 'course agregada correctamente.', 'data' => $course], 201);
     }
 
-    public function show(Course $course){
-        return view('course.show', compact('course'));
+    function update(UpdateCourseRequest $request, $id)
+    {
+        $course = $this->courseService->update($id, $request->validate());
+        if(!$course){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['message' => 'Actualizado correctamente', 'data' => $course]);
     }
 
-    public function edit(Course $course){
-        return view('course.edit', compact('course'));
-    }
+    function destroy($id)
+    {
+        $course = $this->courseService->delete($id);
+        if(!$course){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-    public function update(Request $request, Course $course){
-        $course->course_number =  $request->course_number;
-        $course->day = $request->day;
-        $course->save();
-
-        return redirect()->route('course.index');
-    }
-
-    function destroy(Course $course){
-        $course->delete();
-        return redirect()->route('course.index');
+        return response()->json(['message' => 'Eliminado correctamente.']);
     }
 }

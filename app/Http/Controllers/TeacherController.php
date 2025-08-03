@@ -2,58 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\StoreTeacherRequest;
+use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use App\Models\Area;
-use App\Models\Course;
-use App\Models\Teacher;
 use App\Models\TrainingCenter;
+use App\Services\TeacherService;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    //
-    public function index(){
+    protected $teacherService;
 
-        $teachers = Teacher::included()->filter()->get();
+    function __construct(TeacherService $teacherService)
+    {
+        $this->teacherService = $teacherService;
+    }
+
+    function index()
+    {
+        $teachers = $this->teacherService->all();
         return response()->json($teachers);
-        // $teachers = Teacher::all();
-        // return view('teacher.index', compact('teachers'));
     }
 
-    public function create(){
-        $areas = Area::all();
-        $trainingcenters = TrainingCenter::all();
-        return view('teacher.create', compact('areas', 'trainingcenters', 'areas'));
+    function show($id)
+    {
+        $teacher = $this->teacherService->show($id);
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
+
+        return response()->json($teacher);
     }
 
-    public function store(Request $request){
-        $teacher = new Teacher();
-        $teacher->name = $request->name;
-        $teacher->email = $request->email;
-        $teacher->area_id = $request->area_id;
-        $teacher->training_center_id = $request->training_center_id;
-        $teacher->save();
-
-        return redirect()->route('teacher.index');
+    function store(StoreTeacherRequest $request)
+    {
+        $teacher = $this->teacherService->create($request->validate());
+        return response()->json(['message' => 'teacher agregada correctamente.', 'data' => $teacher], 201);
     }
 
-    public function show(Teacher $teacher){
-        return view('teacher.show', compact('teacher'));
+    function update(UpdateTeacherRequest $request, $id)
+    {
+        $teacher = $this->teacherService->update($id, $request->validate());
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['message' => 'Actualizado correctamente', 'data' => $teacher]);
     }
 
-    public function edit(Teacher $teacher){
-        return view('teacher.edit', compact('teacher'));
-    }
+    function destroy($id)
+    {
+        $teacher = $this->teacherService->delete($id);
+        if(!$teacher){
+            return response()->json(['message' => 'No encontrado.'], 404);
+        }
 
-    public function update(Request $request, Teacher $teacher){
-        $teacher->name = $request->name;
-        $teacher->email = $request->email;
-        $teacher->save();
-
-        return redirect()->route('teacher.index');
-    }
-
-    public function destroy(Teacher $teacher){
-        $teacher->delete();
-        return redirect()->route('teacher.index');
+        return response()->json(['message' => 'Eliminado correctamente.']);
     }
 }
