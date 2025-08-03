@@ -9,7 +9,7 @@ class ApprenticeServiceImpl implements ApprenticeService
 {
     function all()
     {
-        return Apprentice::all();
+        return Apprentice::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)

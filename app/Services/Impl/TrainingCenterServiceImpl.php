@@ -9,7 +9,7 @@ class TrainingCenterServiceImpl implements TrainingCenterService
 {
    function all()
     {
-        return TrainingCenter::all();
+        return TrainingCenter::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)

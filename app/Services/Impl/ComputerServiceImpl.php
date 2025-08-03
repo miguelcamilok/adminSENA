@@ -9,7 +9,7 @@ class ComputerServiceImpl implements ComputerService
 {
     function all()
     {
-        return Computer::all();
+        return Computer::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)

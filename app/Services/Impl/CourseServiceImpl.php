@@ -9,7 +9,7 @@ class CourseServiceImpl implements CourseService
 {
     function all()
     {
-        return Course::all();
+        return Course::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)

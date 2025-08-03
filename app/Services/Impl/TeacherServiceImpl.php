@@ -9,7 +9,7 @@ class TeacherServiceImpl implements TeacherService
 {
    function all()
     {
-        return Teacher::all();
+        return Teacher::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)

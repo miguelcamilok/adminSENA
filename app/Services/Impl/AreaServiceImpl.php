@@ -10,7 +10,7 @@ class AreaServiceImpl implements AreaService
 {
     function all()
     {
-        return Area::all();
+        return Area::included()->filter()->sort()->getOrPaginate();
     }
 
     function show($id)
